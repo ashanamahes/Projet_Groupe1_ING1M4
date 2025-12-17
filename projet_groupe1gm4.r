@@ -399,20 +399,21 @@ install.packages("factoextra")
 library(FactoMineR)
 library(factoextra)
 
-A.ca =CA(A)
-A.ca$eig #on a besoin de 4 axes pour avoir >70% khi-2
-fviz_eig(A.ca,addlabels = T)
+mat.ca =CA(mat)
+mat.ca$eig #on a besoin de 4 axes pour avoir >70% khi-2
+fviz_eig(mat.ca,addlabels = T)
 
 
-A.ca$row$contrib[,1] #numérique
-fviz_contrib(A.ca, choice = "row", axes =1) #graphique 
+mat.ca$row$contrib[,1] #numérique
+fviz_contrib(mat.ca, choice = "row", axes =1) #graphique 
 
-fviz_contrib(A.ca,choice="col",axes=1)
+fviz_contrib(mat.ca,choice="col",axes=1)
 
-fviz_contrib(A.ca,choice="row",axes=2)
-fviz_contrib(A.ca,choice="col",axes=2)
+fviz_contrib(mat.ca,choice="row",axes=2)
+fviz_contrib(mat.ca,choice="col",axes=2)
 
 # afc stress et temps d'écran 
+
 projet$Stress_cat <- cut(
   projet$Stress,
   breaks = c(-Inf, 3, 6, Inf),
@@ -425,9 +426,6 @@ projet$TempsEcran_cat <- cut(
   labels = c("mauvais", "moyen", "bon")
 )
 
-length(projet$Stress_cat)
-length(projet$TempsEcran_cat)
-
 projet_clean <- projet[complete.cases(projet$Stress_cat, projet$TempsEcran_cat), ]
 tab_afc <- table(projet_clean$Stress_cat, projet_clean$TempsEcran_cat)
 chisq.test(tab_afc)
@@ -437,14 +435,16 @@ library(factoextra)
 
 res.afc <- CA(tab_afc, graph = FALSE)
 fviz_ca_biplot(res.afc, repel = TRUE)
+fviz_eig(res.afc,addlabels = T)
 
+
+res.afc$row$contrib[,1] #numérique
 fviz_contrib(res.afc, choice = "row", axes =1) #graphique 
 
 fviz_contrib(res.afc,choice="col",axes=1)
 
 fviz_contrib(res.afc,choice="row",axes=2)
 fviz_contrib(res.afc,choice="col",axes=2)
-
 
 #####Les modalités proches sont associées
 
