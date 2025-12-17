@@ -399,20 +399,21 @@ install.packages("factoextra")
 library(FactoMineR)
 library(factoextra)
 
-A.ca =CA(A)
-A.ca$eig #on a besoin de 4 axes pour avoir >70% khi-2
-fviz_eig(A.ca,addlabels = T)
+mat.ca =CA(mat)
+mat.ca$eig #on a besoin de 4 axes pour avoir >70% khi-2
+fviz_eig(mat.ca,addlabels = T)
 
 
-A.ca$row$contrib[,1] #numérique
-fviz_contrib(A.ca, choice = "row", axes =1) #graphique 
+mat.ca$row$contrib[,1] #numérique
+fviz_contrib(mat.ca, choice = "row", axes =1) #graphique 
 
-fviz_contrib(A.ca,choice="col",axes=1)
+fviz_contrib(mat.ca,choice="col",axes=1)
 
-fviz_contrib(A.ca,choice="row",axes=2)
-fviz_contrib(A.ca,choice="col",axes=2)
+fviz_contrib(mat.ca,choice="row",axes=2)
+fviz_contrib(mat.ca,choice="col",axes=2)
 
 # afc stress et temps d'écran 
+
 projet$Stress_cat <- cut(
   projet$Stress,
   breaks = c(-Inf, 3, 6, Inf),
